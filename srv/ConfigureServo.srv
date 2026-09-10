@@ -1,0 +1,21 @@
+# Endpoints and drive policy are separate concerns that share a persistence record, so
+# the request says which of them it is writing.
+uint8 APPLY_ENDPOINTS=1
+uint8 APPLY_DRIVE=2
+uint8 APPLY_CLEAR=4      # forget the calibration entirely; other bits ignored
+
+string  joint
+uint8   apply            # bitwise OR of the above
+
+int32   raw_closed       # APPLY_ENDPOINTS
+int32   raw_open
+
+uint8   drive_closed     # APPLY_DRIVE
+uint8   drive_open
+uint8   drive_mid
+uint16  settle_ms
+float64 zone_epsilon
+---
+bool    accepted
+string  reason           # empty when accepted
+ServoDescriptor result   # as stored, after clamping

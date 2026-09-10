@@ -1,0 +1,13 @@
+uint8 ENABLE_POLICY=0    # leave the drive policy in charge
+uint8 ENABLE_ON=1        # drive and hold until the next motion command
+uint8 ENABLE_OFF=2       # release now, whatever the policy says
+
+string  joint
+int32   raw_value
+bool    move             # false: do not move, only apply `enable`
+uint8   enable
+---
+bool    accepted
+string  reason
+int32   raw_applied      # after clamping; may differ from raw_value
+bool    clamped
