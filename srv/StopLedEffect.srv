@@ -1,0 +1,5 @@
+string   surface        # or "all"
+---
+bool     accepted       # true even when nothing was running
+string   reason
+string[] stopped        # the surfaces whose run ended

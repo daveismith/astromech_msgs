@@ -1,0 +1,8 @@
+string  surface         # a surface, or "all"
+string  effect          # an effect, or a clip for the surface's target
+uint32  rgb             # 0xRRGGBB; 0: the effect's or clip's own colour
+uint8   speed           # 1..9; 0: 5
+uint32  duration_ms     # 0: until stopped, or the effect ends by itself
+---
+bool    accepted
+string  reason          # empty when accepted

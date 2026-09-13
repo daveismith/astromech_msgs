@@ -1,0 +1,23 @@
+# As ConfigureServo, the request says what it writes. Every field asked for is checked
+# before any is applied, so a refused request changes nothing.
+uint8 APPLY_MODE=1
+uint8 APPLY_BRIGHTNESS=2
+uint8 APPLY_HUE=4
+uint8 APPLY_DRIFT=8
+uint8 APPLY_SAVE=16         # then persist every display's settings
+
+uint8 MODE_RANDOM=0         # the display's own animation: the drift, or a PSI's wipe
+uint8 MODE_SOLID=2          # one colour: rgb
+uint8 MODE_OFF=4            # black, and left alone
+
+string  display             # a display, or "all"
+uint8   apply               # bitwise OR of APPLY_*
+uint8   mode
+uint8   brightness          # percent
+int8    hue                 # -128..127 of the hue circle
+string  drift               # calm or lively
+uint32  rgb                 # MODE_SOLID; 0 keeps the display's colour
+---
+bool            accepted
+string          reason
+LedDisplayState result      # as applied; its name is empty for "all"

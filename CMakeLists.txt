@@ -9,9 +9,20 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/ServoDescriptor.msg"
   "msg/ServoState.msg"
   "msg/ServoStateArray.msg"
+  "msg/LedDisplay.msg"
+  "msg/LedSurface.msg"
+  "msg/LedClip.msg"
+  "msg/LedDisplayState.msg"
+  "msg/LedSurfaceState.msg"
+  "msg/LedStateArray.msg"
   "srv/ListServos.srv"
   "srv/ConfigureServo.srv"
   "srv/MoveServoRaw.srv"
+  "srv/ListLeds.srv"
+  "srv/RunLedEffect.srv"
+  "srv/SayLedText.srv"
+  "srv/StopLedEffect.srv"
+  "srv/ConfigureLedDisplay.srv"
   DEPENDENCIES std_msgs
 )
 

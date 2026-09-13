@@ -1,0 +1,16 @@
+uint8 MOTION_BOUNCE=0   # back and forth, forever; a line that fits stays still
+uint8 MOTION_LOOP=1     # leftwards, round and round
+uint8 MOTION_LEFT=2     # in from the right, out at the left, once
+uint8 MOTION_RIGHT=3    # in from the left, out at the right, once
+uint8 MOTION_UP=4       # the lines as one block, rising through the boards, once
+string   surface
+string[] lines          # top first, one per display of the surface
+bool     linked         # one position for both lines, from the longer; UP always is
+uint8    motion
+bool     on_black       # false: over each display's drift
+uint32   rgb            # 0: each display's font colour
+uint8    speed          # 1..9; 0: 5. A column is 120 ms at speed 5
+uint32   duration_ms    # 0: until stopped, or the motion ends
+---
+bool    accepted
+string  reason

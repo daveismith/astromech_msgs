@@ -1,0 +1,9 @@
+# Everything a UI needs to drive this controller's LEDs without knowing the droid.
+---
+LedDisplay[] displays
+LedSurface[] surfaces
+string[]     effects            # the code effects; a clip name works wherever an effect does
+string[]     effect_summaries   # one line each
+LedClip[]    clips              # playable clips only; a refused file is left out
+string[]     text_motions       # bounce, loop, left, right, up
+string[]     drift_presets      # calm, lively
