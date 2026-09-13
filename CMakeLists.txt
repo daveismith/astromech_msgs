@@ -4,6 +4,7 @@ project(astromech_msgs)
 find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(builtin_interfaces REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/ServoDescriptor.msg"
@@ -15,6 +16,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/LedDisplayState.msg"
   "msg/LedSurfaceState.msg"
   "msg/LedStateArray.msg"
+  "msg/DomeButtonSequence.msg"
+  "msg/DomeButtonState.msg"
   "srv/ListServos.srv"
   "srv/ConfigureServo.srv"
   "srv/MoveServoRaw.srv"
@@ -23,7 +26,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/SayLedText.srv"
   "srv/StopLedEffect.srv"
   "srv/ConfigureLedDisplay.srv"
-  DEPENDENCIES std_msgs
+  DEPENDENCIES std_msgs builtin_interfaces
 )
 
 ament_export_dependencies(rosidl_default_runtime)
