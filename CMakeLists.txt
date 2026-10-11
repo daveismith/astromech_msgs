@@ -18,6 +18,10 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/LedStateArray.msg"
   "msg/DomeButtonSequence.msg"
   "msg/DomeButtonState.msg"
+  "msg/MagicPanelSequence.msg"
+  "msg/MagicPanelDescriptor.msg"
+  "msg/MagicPanelSettings.msg"
+  "msg/MagicPanelState.msg"
   "srv/ListServos.srv"
   "srv/ConfigureServo.srv"
   "srv/MoveServoRaw.srv"
@@ -26,6 +30,10 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/SayLedText.srv"
   "srv/StopLedEffect.srv"
   "srv/ConfigureLedDisplay.srv"
+  "srv/ListMagicPanel.srv"
+  "srv/StartMagicSequence.srv"
+  "srv/StopMagicSequence.srv"
+  "srv/ConfigureMagicPanel.srv"
   DEPENDENCIES std_msgs builtin_interfaces
 )
 

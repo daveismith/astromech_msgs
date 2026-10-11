@@ -1,0 +1,14 @@
+# Run a sequence. The reply waits for the panel's RUN_COUNTER to move (about 20 ms), because
+# the panel acknowledges every write, including one it throws away.
+uint8 END_AS_IT_LEAVES_IT=0
+uint8 END_BLANK=1
+
+uint8   sequence_id         # catalogue id
+uint8   repeat              # iterations; 0 = forever. Needs CAP_REPEAT unless 1
+uint8   end
+---
+bool    accepted
+string  reason              # empty when accepted, EXCEPT "not confirmed": accepted is then true,
+                            #   confirmed false, and the sequence may well be running
+bool    confirmed           # RUN_COUNTER moved: the panel really started it
+uint8   run_counter         # as read after the start; 0 when not confirmed

@@ -1,0 +1,8 @@
+# Stop whatever the Magic Panel is running. Stopping an idle panel is not an error.
+uint8 STOP_BLANK=0
+uint8 STOP_FREEZE=1
+
+uint8   mode
+---
+bool    accepted            # true even when nothing was running
+string  reason

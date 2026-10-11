@@ -1,0 +1,5 @@
+# The Magic Panel's descriptor and its whole catalogue, from the controller's cache: no bus
+# traffic, so it always answers, panel or not.
+---
+MagicPanelDescriptor  panel
+MagicPanelSequence[]  sequences     # empty unless panel.link is LINK_PRESENT

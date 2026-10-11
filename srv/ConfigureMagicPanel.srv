@@ -1,0 +1,24 @@
+# Change a Magic Panel's settings. As ConfigureServo, the request says what it writes: only
+# the fields whose APPLY_* bit is set are applied, and every one of them is checked before
+# any is, so a refused request changes nothing.
+uint8 APPLY_BRIGHTNESS=1          # needs CAP_BRIGHTNESS
+uint8 APPLY_DEFAULT_BRIGHTNESS=2  # needs CAP_EEPROM_CONFIG; takes effect at the panel's next power-on
+uint8 APPLY_ORIENTATION=4         # needs CAP_ORIENTATION
+uint8 APPLY_LEGACY=8              # needs CAP_LEGACY
+uint8 APPLY_INPUTS=16
+uint8 APPLY_RESUME=32
+uint8 APPLY_SAVE=64               # then persist to EEPROM; needs CAP_EEPROM_CONFIG. ~100,000 writes
+uint8 APPLY_FACTORY=128           # restore factory values AND store them; every other bit ignored
+
+uint8   apply                     # bitwise OR of APPLY_*
+uint8   brightness                # 0..15
+uint8   default_brightness        # 0..15
+bool    rotated
+bool    legacy
+bool    inputs
+bool    resume
+---
+bool                accepted
+string              reason
+MagicPanelSettings  result        # live settings as they now stand
+bool                saved         # APPLY_SAVE or APPLY_FACTORY completed
