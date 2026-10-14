@@ -22,6 +22,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/MagicPanelDescriptor.msg"
   "msg/MagicPanelSettings.msg"
   "msg/MagicPanelState.msg"
+  "msg/DomeTelemetry.msg"
   "srv/ListServos.srv"
   "srv/ConfigureServo.srv"
   "srv/MoveServoRaw.srv"

@@ -28,3 +28,7 @@ extension namespace (`https://astromech.co/urdf/1.0`).
 
 Build on a ROS 2 host with `colcon build --packages-select astromech_msgs`; on a
 micro-ROS target it is an extra package in the colcon workspace.
+
+The dome drive's hardware interface, [ros2_roamadome](https://github.com/daveismith/ros2_roamadome),
+publishes `msg/DomeTelemetry` on `~/telemetry`: one stamped message per firmware position
+report, with the unwrapped angle and a regression velocity estimate.
