@@ -2,13 +2,13 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>astromech_msgs</name>
-  <version>1.4.0</version>
+  <version>1.5.0</version>
   <description>
     Interfaces for an astromech droid's servo controllers and LED displays: a
     controller-agnostic servo record and the services that list, configure and raw-move
     one; the LED displays' descriptors, state, and the services that run effects, clips
     and text on them; the dome buttons' sequences and their controller's state; and the dome drive's
-    position telemetry. Versioned with the
+    position telemetry and its bench-mode raw drive service. Versioned with the
     astromech URDF extension namespace (https://astromech.co/urdf/1.0).
   </description>
   <maintainer email="1734595+daveismith@users.noreply.github.com">David Smith</maintainer>

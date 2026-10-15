@@ -32,3 +32,7 @@ micro-ROS target it is an extra package in the colcon workspace.
 The dome drive's hardware interface, [ros2_roamadome](https://github.com/daveismith/ros2_roamadome),
 publishes `msg/DomeTelemetry` on `~/telemetry`: one stamped message per firmware position
 report, with the unwrapped angle and a regression velocity estimate.
+
+`srv/DomeBenchDrive` is the bench-mode raw rotate service (`~/bench/drive`) on the same
+hardware interface: a `:DPR` percentage, -100..100, kept alive by repeated calls (a heartbeat);
+it is only offered when the interface is launched with bench mode enabled.
