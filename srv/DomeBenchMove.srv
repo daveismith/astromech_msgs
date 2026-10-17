@@ -1,10 +1,12 @@
 # Bench mode only (ros2_roamadome enable_bench_mode): one absolute, home-relative
 # position move, sent to the firmware as :DPA<target_deg>. The firmware runs the
 # move to completion on its own (REACHED TARGET or its position timeout); the host
-# cannot cancel it. Repeating the call with the same target refreshes the bench
+# cannot cancel it. Repeating the call with the same target and speed refreshes the bench
 # heartbeat without re-sending the move; DomeBenchDrive with percent 0 releases
-# the bench claim once the dome is at rest.
+# the bench claim once the dome is at rest. Repeating the call with a different target or
+# speed_percent re-sends the move.
 uint16 target_deg   # 0..359
+uint8 speed_percent # 0 = the firmware's SpeedTarget (or the plugin's position_move_speed_percent), else 1..100, sent as :DPA<deg>,<percent>; the firmware floors it at MinSpeed and restores SpeedTarget when the move ends
 ---
 bool success
 string message
