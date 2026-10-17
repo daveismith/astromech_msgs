@@ -37,4 +37,5 @@ report, with the unwrapped angle and a regression velocity estimate.
 hardware interface: a `:DPR` percentage, -100..100, kept alive by repeated calls (a heartbeat);
 it is only offered when the interface is launched with bench mode enabled.
 `srv/DomeBenchMove` (`~/bench/move`) is its companion for the position-move bench: one
-absolute, home-relative `:DPA` move that the firmware runs to completion on its own.
+absolute, home-relative `:DPA` move that the firmware runs to completion on its own, with an
+optional per-move speed (`speed_percent`, sent as `:DPA<deg>,<percent>`).
