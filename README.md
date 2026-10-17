@@ -36,3 +36,5 @@ report, with the unwrapped angle and a regression velocity estimate.
 `srv/DomeBenchDrive` is the bench-mode raw rotate service (`~/bench/drive`) on the same
 hardware interface: a `:DPR` percentage, -100..100, kept alive by repeated calls (a heartbeat);
 it is only offered when the interface is launched with bench mode enabled.
+`srv/DomeBenchMove` (`~/bench/move`) is its companion for the position-move bench: one
+absolute, home-relative `:DPA` move that the firmware runs to completion on its own.

@@ -36,6 +36,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/StopMagicSequence.srv"
   "srv/ConfigureMagicPanel.srv"
   "srv/DomeBenchDrive.srv"
+  "srv/DomeBenchMove.srv"
   DEPENDENCIES std_msgs builtin_interfaces
 )
 
