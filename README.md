@@ -39,3 +39,29 @@ it is only offered when the interface is launched with bench mode enabled.
 `srv/DomeBenchMove` (`~/bench/move`) is its companion for the position-move bench: one
 absolute, home-relative `:DPA` move that the firmware runs to completion on its own, with an
 optional per-move speed (`speed_percent`, sent as `:DPA<deg>,<percent>`).
+
+## Personality
+
+The droid's mood is kept by one affect node, and three interfaces carry it. Design:
+`docs/personality-architecture.md` in the r2_dev workspace.
+
+`msg/Stimulus` is published on `/stimuli`: one thing a perception node saw, with a `kind`
+(the affect table's key), the producing node's name as `source`, an `intensity` and
+`confidence` in 0..1, and optionally a `subject`, a `bearing_rad` (NaN when unknown) and a
+`ttl_s`. Adapters, the stimulate CLI and consoles produce it; the affect node consumes it.
+Producers describe what they saw and never decide what the droid feels: that is the affect
+layer's job.
+
+`msg/MoodState` is published on `/mood/state` by the affect node at 10 Hz, whether or not
+anything changed, so silence means the node is gone. It carries the four axes (arousal,
+valence, curiosity, confidence), the nearest mood label and its strength, the lock state, the
+current focus (subject and bearing) and `idle_s`, the time since the last accepted external
+stimulus. Behaviour and expression nodes consume it.
+
+`srv/SetMood` is offered as `/mood/set`: force a mood, lock the current one, or clear either.
+A force jumps the state to the named mood and switches the label at once; with `lock` false
+the dynamics then resume from there. A lock freezes the dynamics, though focus still follows
+stimuli, until `duration_s` elapses or a clearing call (empty `mood`, `lock` false) arrives.
+A lock is overridden only by a lock from its own `source` or by a clear from any source, so
+two consoles cannot fight and the operator can always free it. A refused request (unknown
+label, or a lock held by another source) changes nothing.

@@ -1,0 +1,10 @@
+# Force a mood, lock the current one, or clear either. Offered as /mood/set by the affect
+# node. A refused request changes nothing.
+string  mood          # a label from affect.yaml, or "" to leave the vector where it is
+bool    lock          # freeze relax and impulse updates; stimuli still update focus
+float32 duration_s    # 0: until cleared by a call with mood "" and lock false
+string  source        # who is asking (console, mood CLI, a test); recorded as lock_source
+---
+bool accepted         # false: unknown label, or a lock held by another source
+string reason         # empty when accepted
+MoodState result      # the state after the call

@@ -23,6 +23,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/MagicPanelSettings.msg"
   "msg/MagicPanelState.msg"
   "msg/DomeTelemetry.msg"
+  "msg/Stimulus.msg"
+  "msg/MoodState.msg"
   "srv/ListServos.srv"
   "srv/ConfigureServo.srv"
   "srv/MoveServoRaw.srv"
@@ -37,6 +39,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/ConfigureMagicPanel.srv"
   "srv/DomeBenchDrive.srv"
   "srv/DomeBenchMove.srv"
+  "srv/SetMood.srv"
   DEPENDENCIES std_msgs builtin_interfaces
 )
 
