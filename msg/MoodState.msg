@@ -10,6 +10,6 @@ float32 mood_strength    # 0..1, how close the state is to that prototype
 bool    locked           # dynamics frozen by SetMood; stimuli still update focus
 string  lock_source      # the SetMood.source that holds the lock; empty when not locked
 builtin_interfaces/Time lock_until   # zero: until cleared
-string  focus_subject    # subject of the latest unexpired stimulus that named one
+string  focus_subject    # of the latest unexpired stimulus that named a subject or a bearing; empty when it named only a bearing
 float32 focus_bearing_rad            # its bearing; NaN when none
 float32 idle_s           # seconds since the last accepted external stimulus
