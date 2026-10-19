@@ -1,4 +1,6 @@
+uint8 PRIORITY_OVERRIDE=200  # this and above, or 0, are never refused for a hold
 string   surface        # or "all"
+uint8    priority       # 1..199: refused while a display it touches is held; see PRIORITY_OVERRIDE
 ---
 bool     accepted       # true even when nothing was running
 string   reason

@@ -9,6 +9,7 @@ uint8 APPLY_SAVE=16         # then persist every display's settings
 uint8 MODE_RANDOM=0         # the display's own animation: the drift, or a PSI's wipe
 uint8 MODE_SOLID=2          # one colour: rgb
 uint8 MODE_OFF=4            # black, and left alone
+uint8 PRIORITY_OVERRIDE=200 # this and above, or 0, are never refused for a hold
 
 string  display             # a display, or "all"
 uint8   apply               # bitwise OR of APPLY_*
@@ -17,6 +18,8 @@ uint8   brightness          # percent
 int8    hue                 # -128..127 of the hue circle
 string  drift               # calm or lively
 uint32  rgb                 # MODE_SOLID; 0 keeps the display's colour
+string  owner               # who is asking, for the state topics; up to 31 bytes, may be empty
+uint8   priority            # 1..199: refused while a display it touches is held; see PRIORITY_OVERRIDE
 ---
 bool            accepted
 string          reason

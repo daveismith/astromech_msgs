@@ -16,6 +16,7 @@ uint8 STATE_STOPPED=3
 uint8 SEQ_NONE=255            # nothing has run since the panel reset
 uint8 SUB_SEQ_OFF=254         # a random show is in its dark interval
 uint32 NEVER=4294967295
+uint32 HOLD_FOREVER=4294967295 # hold_remaining_ms under the sticky manual setting; NEVER's value
 
 std_msgs/Header header        # stamp: when this was PUBLISHED, UTC. NOT when it was read
 
@@ -67,3 +68,11 @@ bool    refusal_confirmed     # false: a START whose RUN_COUNTER never moved
 string  refusal_reason        # the panel's own error name; empty when not confirmed
 string  refusal_op            # what was sent: "BRIGHTNESS 16"
 uint32  refusal_age_ms
+string  started_by            # who on this controller started the current or last run: ros, console,
+                              #   ui; "other" when ours is false (another master, the rotary
+                              #   switch); empty when nothing has run
+string  owner                 # started_by is ros: the owner the request named
+bool    manual                # the sticky manual setting: the panel is held until it is cleared
+string  held_by               # console, ui, or manual: ROS starts and stops at priority 1..199 are
+                              #   refused. Empty when not held
+uint32  hold_remaining_ms     # 0 when not held; HOLD_FOREVER while held_by is manual

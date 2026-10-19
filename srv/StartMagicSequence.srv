@@ -2,10 +2,13 @@
 # the panel acknowledges every write, including one it throws away.
 uint8 END_AS_IT_LEAVES_IT=0
 uint8 END_BLANK=1
+uint8 PRIORITY_OVERRIDE=200 # this and above, or 0, are never refused for a hold
 
 uint8   sequence_id         # catalogue id
 uint8   repeat              # iterations; 0 = forever. Needs CAP_REPEAT unless 1
 uint8   end
+string  owner               # who is asking, for the state topic; up to 31 bytes, may be empty
+uint8   priority            # 1..199: refused while the panel is held; see PRIORITY_OVERRIDE
 ---
 bool    accepted
 string  reason              # empty when accepted, EXCEPT "not confirmed": accepted is then true,
