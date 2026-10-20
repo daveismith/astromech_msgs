@@ -85,11 +85,13 @@ refuses a source above its slot. A manual intent claims its channel for the arbi
 the personality is capped. `interruptible` false makes a newer intent of the same priority
 wait; `intent_id` is echoed in `ChannelStatus`.
 
-`srv/ClaimChannel` is offered as `/expression/claim` by every arbiter. A claim holds a
+`srv/ClaimChannel` is offered as `/expression/claim/led` by the LED arbiter (`fld`, `tfld`,
+`bfld`, `rld`, `psi`) and as `/expression/claim/magic` by the Magic Panel arbiter (`magic`):
+two servers on one name do not share requests under rmw_zenoh. A claim holds a
 channel for one `owner` at one `priority` for `lease_s` (capped by the arbiter's
 `max_lease_s`); call again to renew, or with `lease_s` 0 to release. A claim at higher
 priority than the holder is accepted, equal priority from another owner is refused naming
-the holder. Each arbiter answers for its own channels and refuses the others with the
+the holder. Each arbiter answers for its own channels and refuses the other's with the
 reason "not my channel". The response carries the channel's `ChannelStatus` after the call.
 
 `msg/ChannelStatus` is published on `/expression/status`, one per channel, at `status_hz`
