@@ -25,6 +25,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/DomeTelemetry.msg"
   "msg/Stimulus.msg"
   "msg/MoodState.msg"
+  "msg/ExpressionIntent.msg"
+  "msg/ChannelStatus.msg"
   "srv/ListServos.srv"
   "srv/ConfigureServo.srv"
   "srv/MoveServoRaw.srv"
@@ -40,6 +42,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/DomeBenchDrive.srv"
   "srv/DomeBenchMove.srv"
   "srv/SetMood.srv"
+  "srv/ClaimChannel.srv"
   DEPENDENCIES std_msgs builtin_interfaces
 )
 

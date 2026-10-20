@@ -66,6 +66,41 @@ A lock is overridden only by a lock from its own `source` or by a clear from any
 two consoles cannot fight and the operator can always free it. A refused request (unknown
 label, or a lock held by another source) changes nothing.
 
+## Expression (2.1.0)
+
+Three more interfaces carry the personality's output to the lights. 2.1.0 is additive on
+2.0.0: nothing existing changed. The dome device does not build these three types, so it
+needs no reflash; the Pi and the container only need to be on the same 2.x as the device
+for the LED and Magic Panel types.
+
+`msg/ExpressionIntent` is published on `/expression/intent`: one thing someone wants a
+channel to do. `channel` is `fld`, `tfld`, `bfld`, `rld`, `psi` or `magic` (`tfld` and `bfld`
+are sub-channels of `fld`; later: `dome`, `sound`, `servo:<joint>`). `action` is the channel's
+vocabulary (`effect`, `clip`, `text`, `configure`, `stop` for the LEDs; `sequence`,
+`brightness`, `stop` for the Magic Panel) and `params` is its JSON. `source` is `idle`,
+`behavior`, `manual` or `safety`, with `priority` on the ladder 10 (`PRIORITY_IDLE`), 100
+(`PRIORITY_BEHAVIOR`), 200 (`PRIORITY_MANUAL`) and 255 (`PRIORITY_SAFETY`); the arbiter
+refuses a source above its slot. A manual intent claims its channel for the arbiter's
+`manual_hold_s`, renewed by each one. `duration_ms` 0 is allowed for manual intents only;
+the personality is capped. `interruptible` false makes a newer intent of the same priority
+wait; `intent_id` is echoed in `ChannelStatus`.
+
+`srv/ClaimChannel` is offered as `/expression/claim` by every arbiter. A claim holds a
+channel for one `owner` at one `priority` for `lease_s` (capped by the arbiter's
+`max_lease_s`); call again to renew, or with `lease_s` 0 to release. A claim at higher
+priority than the holder is accepted, equal priority from another owner is refused naming
+the holder. Each arbiter answers for its own channels and refuses the others with the
+reason "not my channel". The response carries the channel's `ChannelStatus` after the call.
+
+`msg/ChannelStatus` is published on `/expression/status`, one per channel, at `status_hz`
+(2 Hz) and on every change. `state` is `STATE_IDLE`, `RUNNING`, `CLAIMED`, `FOREIGN` (a person
+holds it on the device, or a run this arbiter did not start), `STALE` (no fresh mood: neutral
+palette), `OFFLINE` (the device is not answering) or `DARK` (the LED strip is switched off).
+`owner`, `priority` and `lease_remaining_s` describe the holder (`-1`: forever), `active_*`
+the running intent, and `mood` the palette being followed. `dropped` counts intents dropped
+because a higher priority held the channel and `refused` counts device refusals
+(`held by ...`), both since start.
+
 ## 2.0.0: who is driving
 
 The LED displays and the Magic Panel are driven by people on the droid itself (its console,

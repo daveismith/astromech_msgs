@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>astromech_msgs</name>
-  <version>2.0.0</version>
+  <version>2.1.0</version>
   <description>
     Interfaces for an astromech droid's servo controllers and LED displays: a
     controller-agnostic servo record and the services that list, configure and raw-move
@@ -10,7 +10,8 @@
     and text on them; the dome buttons' sequences and their controller's state; the Magic
     Panel's descriptor, catalogue, settings, state and services; the dome drive's position
     telemetry and its bench-mode drive services; and the personality interfaces (stimuli,
-    mood state, set-mood). Versioned with the
+    mood state, set-mood) and the expression interfaces (intents, channel claims, channel
+    status). Versioned with the
     astromech URDF extension namespace (https://astromech.co/urdf/1.0).
   </description>
   <maintainer email="1734595+daveismith@users.noreply.github.com">David Smith</maintainer>

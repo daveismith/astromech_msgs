@@ -1,0 +1,11 @@
+# Hold a channel for one owner at one priority for lease_s, renewed by calling again,
+# released with lease_s 0. Offered as /expression/claim by every arbiter; each answers for
+# its own channels and refuses the others with "not my channel".
+string  channel
+string  owner          # console, foxglove, a test, ...
+uint8   priority       # ExpressionIntent/PRIORITY_*
+float32 lease_s        # 0: release; the arbiter caps it at max_lease_s (default 60)
+---
+bool    accepted
+string  reason         # empty when accepted; otherwise names the holder or the rule
+ChannelStatus status   # the channel after the call
