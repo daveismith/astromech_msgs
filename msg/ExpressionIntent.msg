@@ -9,10 +9,10 @@ uint8 PRIORITY_MANUAL=200
 uint8 PRIORITY_SAFETY=255
 
 std_msgs/Header header
-string  channel        # fld | tfld | bfld | rld | psi | magic (later: dome, sound, servo:<joint>)
+string  channel        # fld | tfld | bfld | rld | psi | magic | dome (later: sound, servo:<joint>)
 string  source         # idle | behavior | manual | safety: who is asking
 uint8   priority       # PRIORITY_*; the arbiter refuses a source above its ladder slot
-string  action         # the channel's vocabulary: effect, clip, text, configure, stop | sequence, brightness, stop
+string  action         # the channel's vocabulary: effect, clip, text, configure, stop | sequence, brightness, stop | look_at, glance, turn, rest, stop
 string  params         # JSON for the action; empty for stop
 uint32  duration_ms    # 0: the action's own length, or until stopped (manual only; the
                        #    personality is capped by the arbiter's max_duration_ms)

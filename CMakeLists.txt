@@ -27,6 +27,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/MoodState.msg"
   "msg/ExpressionIntent.msg"
   "msg/ChannelStatus.msg"
+  "msg/DomeCommandStatus.msg"
   "srv/ListServos.srv"
   "srv/ConfigureServo.srv"
   "srv/MoveServoRaw.srv"

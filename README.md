@@ -75,9 +75,9 @@ for the LED and Magic Panel types.
 
 `msg/ExpressionIntent` is published on `/expression/intent`: one thing someone wants a
 channel to do. `channel` is `fld`, `tfld`, `bfld`, `rld`, `psi` or `magic` (`tfld` and `bfld`
-are sub-channels of `fld`; later: `dome`, `sound`, `servo:<joint>`). `action` is the channel's
+are sub-channels of `fld`; `dome` from 2.2.0; later: `sound`, `servo:<joint>`). `action` is the channel's
 vocabulary (`effect`, `clip`, `text`, `configure`, `stop` for the LEDs; `sequence`,
-`brightness`, `stop` for the Magic Panel) and `params` is its JSON. `source` is `idle`,
+`brightness`, `stop` for the Magic Panel; `look_at`, `glance`, `turn`, `rest`, `stop` for `dome`) and `params` is its JSON. `source` is `idle`,
 `behavior`, `manual` or `safety`, with `priority` on the ladder 10 (`PRIORITY_IDLE`), 100
 (`PRIORITY_BEHAVIOR`), 200 (`PRIORITY_MANUAL`) and 255 (`PRIORITY_SAFETY`); the arbiter
 refuses a source above its slot. A manual intent claims its channel for the arbiter's
@@ -97,11 +97,28 @@ reason "not my channel". The response carries the channel's `ChannelStatus` afte
 `msg/ChannelStatus` is published on `/expression/status`, one per channel, at `status_hz`
 (2 Hz) and on every change. `state` is `STATE_IDLE`, `RUNNING`, `CLAIMED`, `FOREIGN` (a person
 holds it on the device, or a run this arbiter did not start), `STALE` (no fresh mood: neutral
-palette), `OFFLINE` (the device is not answering) or `DARK` (the LED strip is switched off).
+palette), `OFFLINE` (the device is not answering) or `DARK` (the LED strip is switched off) or, from 2.2.0, `SUPPRESSED` (`dome`: the body is moving).
 `owner`, `priority` and `lease_remaining_s` describe the holder (`-1`: forever), `active_*`
 the running intent, and `mood` the palette being followed. `dropped` counts intents dropped
 because a higher priority held the channel and `refused` counts device refusals
 (`held by ...`), both since start.
+
+## Dome motion (2.2.0)
+
+One more interface and one more state carry the personality's dome motion. 2.2.0 is additive
+on 2.1.0: no existing field, constant or type changed; a consumer must tolerate the new
+`ChannelStatus` state 7. The dome device does not build the new type, so it needs
+no reflash.
+
+`msg/DomeCommandStatus` is published on `/dome/cmd/status` by `dome_twist_converter` on every
+source change and at `status_hz` otherwise. `source` is `SOURCE_IDLE`, `SOURCE_JOYSTICK`,
+`SOURCE_FOXGLOVE` or `SOURCE_PERSONALITY` (string constants: `idle`, `joystick`, `foxglove`,
+`personality`), `velocity_rad_s` is what went to `/dome_controller/commands` that tick, and
+`capped` is true when the personality's value was clamped by speed or acceleration.
+
+`msg/ChannelStatus` gains `STATE_SUPPRESSED` (7): on the `dome` channel, the body is moving
+and the personality holds off. The `channel` comment of `msg/ExpressionIntent` now lists
+`dome`.
 
 ## 2.0.0: who is driving
 

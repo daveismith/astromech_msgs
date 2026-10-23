@@ -8,6 +8,7 @@ uint8 STATE_FOREIGN=3   # a person holds it on the device (held_by), or a run th
 uint8 STATE_STALE=4     # /mood/state is stale: neutral palette, no flourishes
 uint8 STATE_OFFLINE=5   # the device's services or state topic are not answering
 uint8 STATE_DARK=6      # LEDs: the strip is switched off (LedStateArray.strip_enabled false)
+uint8 STATE_SUPPRESSED=7 # dome: the body is moving, the personality holds off
 
 std_msgs/Header header
 string  channel
