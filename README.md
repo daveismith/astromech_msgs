@@ -126,16 +126,18 @@ Six interfaces carry the sound channel. 2.3.0 is additive on 2.2.0: no existing 
 constant or type changed.
 
 `msg/SoundClip` is one catalogue entry (`name`, `tags` = the pools it belongs to,
-`duration_ms`, `gain_db`, `excluded` for music and other manual-only clips).
+`duration_ms`, `gain_db`, `clip_fraction` = the share of clipped samples in the source file,
+`excluded` for music and other manual-only clips).
 `srv/ListSounds` returns the clips with the catalogue id, the sample rate and whether
 `vocalize` is available. `srv/PlaySound` plays a clip by `name` or picks one from a `pool`;
 `priority` and `owner` (up to 31 bytes) are echoed in the state, and the response reports the
 clip chosen and the play's length. It is never refused for "busy", only for an unknown name or
 pool or a closed player. `srv/Vocalize` plays a synthesised phrase from `arousal`, `valence`,
 `length_s` and a `seed` (0: random; the seed used is returned). `srv/StopSound` fades out and
-stops. `msg/SoundState` is published on `/sound/state`: `IDLE`, `PLAYING` or `FADING`, the
+stops. `msg/SoundState` is published on `/sound_player/state`: `IDLE`, `PLAYING` or `FADING`, the
 clip, owner, priority and intent id, `elapsed_ms` and `remaining_ms` from the stream, `last_end`
-(0 none, 1 ended, 2 duration, 3 stopped, 4 replaced), the block `level` and the `backend`.
+(0 none, 1 ended, 2 duration, 3 stopped, 4 replaced, 5 failed: a decode or the output failed
+after the play was accepted), the block `level` and the `backend`.
 
 Device pattern as for the LEDs: `sound_player` serves the services and publishes the state, and
 only `sound_arbiter` calls play, vocalize and stop. The level topics are `std_msgs`, so nothing

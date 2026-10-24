@@ -4,3 +4,4 @@ string[] tags            # pools it belongs to (mood labels and reactions)
 uint32   duration_ms
 float32  gain_db         # set alignment + outlier trim + override, peak-limited
 bool     excluded        # music, speech, silence: manual play only
+float32  clip_fraction   # share of clipped samples in the source file
