@@ -1,0 +1,14 @@
+# Play one clip (by name or from a pool) at a gain, replacing whatever plays. Accepted
+# unless the name/pool is unknown or the player is closed. Never refused for "busy".
+string  name             # exact catalogue name, or empty with `pool`
+string  pool             # pick uniformly from this tag; empty with `name`
+float32 gain_db          # added to the catalogue gain; the sum is clamped to the ceiling
+uint32  duration_ms      # 0: the clip's length; otherwise cut here with a fade
+uint8   priority         # echoed in SoundState, never 0 from the personality
+string  owner            # echoed in SoundState; up to 31 bytes, may be empty
+string  intent_id
+---
+bool    accepted
+string  reason           # unknown name | unknown pool | empty pool | closed | ''
+string  name             # the clip chosen (for a pool)
+uint32  duration_ms      # the play's length after the cap

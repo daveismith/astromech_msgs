@@ -28,6 +28,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/ExpressionIntent.msg"
   "msg/ChannelStatus.msg"
   "msg/DomeCommandStatus.msg"
+  "msg/SoundClip.msg"
+  "msg/SoundState.msg"
   "srv/ListServos.srv"
   "srv/ConfigureServo.srv"
   "srv/MoveServoRaw.srv"
@@ -44,6 +46,10 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/DomeBenchMove.srv"
   "srv/SetMood.srv"
   "srv/ClaimChannel.srv"
+  "srv/ListSounds.srv"
+  "srv/PlaySound.srv"
+  "srv/Vocalize.srv"
+  "srv/StopSound.srv"
   DEPENDENCIES std_msgs builtin_interfaces
 )
 

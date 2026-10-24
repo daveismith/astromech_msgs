@@ -75,7 +75,7 @@ for the LED and Magic Panel types.
 
 `msg/ExpressionIntent` is published on `/expression/intent`: one thing someone wants a
 channel to do. `channel` is `fld`, `tfld`, `bfld`, `rld`, `psi` or `magic` (`tfld` and `bfld`
-are sub-channels of `fld`; `dome` from 2.2.0; later: `sound`, `servo:<joint>`). `action` is the channel's
+are sub-channels of `fld`; `dome` from 2.2.0; `sound` from 2.3.0; later: `servo:<joint>`). `action` is the channel's
 vocabulary (`effect`, `clip`, `text`, `configure`, `stop` for the LEDs; `sequence`,
 `brightness`, `stop` for the Magic Panel; `look_at`, `glance`, `turn`, `rest`, `stop` for `dome`) and `params` is its JSON. `source` is `idle`,
 `behavior`, `manual` or `safety`, with `priority` on the ladder 10 (`PRIORITY_IDLE`), 100
@@ -119,6 +119,28 @@ source change and at `status_hz` otherwise. `source` is `SOURCE_IDLE`, `SOURCE_J
 `msg/ChannelStatus` gains `STATE_SUPPRESSED` (7): on the `dome` channel, the body is moving
 and the personality holds off. The `channel` comment of `msg/ExpressionIntent` now lists
 `dome`.
+
+## Sound (2.3.0)
+
+Six interfaces carry the sound channel. 2.3.0 is additive on 2.2.0: no existing field,
+constant or type changed.
+
+`msg/SoundClip` is one catalogue entry (`name`, `tags` = the pools it belongs to,
+`duration_ms`, `gain_db`, `excluded` for music and other manual-only clips).
+`srv/ListSounds` returns the clips with the catalogue id, the sample rate and whether
+`vocalize` is available. `srv/PlaySound` plays a clip by `name` or picks one from a `pool`;
+`priority` and `owner` (up to 31 bytes) are echoed in the state, and the response reports the
+clip chosen and the play's length. It is never refused for "busy", only for an unknown name or
+pool or a closed player. `srv/Vocalize` plays a synthesised phrase from `arousal`, `valence`,
+`length_s` and a `seed` (0: random; the seed used is returned). `srv/StopSound` fades out and
+stops. `msg/SoundState` is published on `/sound/state`: `IDLE`, `PLAYING` or `FADING`, the
+clip, owner, priority and intent id, `elapsed_ms` and `remaining_ms` from the stream, `last_end`
+(0 none, 1 ended, 2 duration, 3 stopped, 4 replaced), the block `level` and the `backend`.
+
+Device pattern as for the LEDs: `sound_player` serves the services and publishes the state, and
+only `sound_arbiter` calls play, vocalize and stop. The level topics are `std_msgs`, so nothing
+new is defined for them. `msg/ExpressionIntent` now lists `sound` (actions `play`, `vocalize`,
+`stop`).
 
 ## 2.0.0: who is driving
 

@@ -1,0 +1,4 @@
+# Fade out and stop whatever plays.
+string owner             # informational
+---
+bool   stopped           # false when nothing was playing

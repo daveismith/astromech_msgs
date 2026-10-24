@@ -1,0 +1,6 @@
+# Everything a UI or the arbiter needs to play from this player's catalogue.
+---
+SoundClip[] clips
+string      catalogue    # path or id of the loaded catalogue, for the arbiter's log
+uint16      sample_rate
+bool        synth        # vocalize available

@@ -1,0 +1,15 @@
+# Synthesise and play one phrase, replacing whatever plays. Declared in 2.3.0 so the
+# interface does not move again when the synthesiser lands.
+float32 arousal          # 0..1
+float32 valence          # 0..1
+float32 length_s         # 0: the synth's own choice from arousal
+int32   seed             # 0: random, reported back
+float32 gain_db
+uint8   priority         # echoed in SoundState, never 0 from the personality
+string  owner            # echoed in SoundState; up to 31 bytes, may be empty
+string  intent_id
+---
+bool    accepted
+string  reason           # empty when accepted
+int32   seed             # the seed used, for replay
+uint32  duration_ms
